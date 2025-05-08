@@ -14,10 +14,10 @@ import { toast } from 'sonner';
 const courseData = {
   id: '1',
   title: 'Introduction to Web Development',
-  description: 'Learn the basics of HTML, CSS, and JavaScript to build modern websites from scratch. This comprehensive course will take you from a beginner to being able to create your own responsive websites with modern design principles. By the end of this course, you'll have built multiple projects that you can add to your portfolio.',
+  description: 'Learn the basics of HTML, CSS, and JavaScript to build modern websites from scratch. This comprehensive course will take you from a beginner to being able to create your own responsive websites with modern design principles. By the end of this course, you\'ll have built multiple projects that you can add to your portfolio.',
   instructor: 'Sarah Johnson',
   instructorTitle: 'Senior Web Developer at Tech Co.',
-  instructorBio: 'Sarah has over 8 years of experience as a web developer and has worked with companies like Google, Facebook, and Amazon. She's passionate about teaching and has helped over 10,000 students learn web development.',
+  instructorBio: 'Sarah has over 8 years of experience as a web developer and has worked with companies like Google, Facebook, and Amazon. She\'s passionate about teaching and has helped over 10,000 students learn web development.',
   thumbnail: 'https://images.unsplash.com/photo-1587620962725-abab7fe55159?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2000&q=80',
   duration: '12 hours',
   totalLessons: 24,
