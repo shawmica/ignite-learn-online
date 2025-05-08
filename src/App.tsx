@@ -11,6 +11,10 @@ import Dashboard from "./pages/Dashboard";
 import Courses from "./pages/Courses";
 import CourseDetail from "./pages/CourseDetail";
 import NotFound from "./pages/NotFound";
+import PrivateRoute from "./components/auth/PrivateRoute";
+
+// Create placeholder pages for instructor dashboard
+import InstructorDashboard from "./pages/InstructorDashboard";
 
 const queryClient = new QueryClient();
 
@@ -21,12 +25,24 @@ const App = () => (
       <Sonner />
       <BrowserRouter>
         <Routes>
+          {/* Public Routes */}
           <Route path="/" element={<Index />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
-          <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/courses" element={<Courses />} />
-          <Route path="/courses/:courseId" element={<CourseDetail />} />
+          
+          {/* Protected Student Routes */}
+          <Route element={<PrivateRoute role="student" />}>
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/courses/:courseId" element={<CourseDetail />} />
+          </Route>
+          
+          {/* Protected Instructor Routes */}
+          <Route element={<PrivateRoute role="instructor" />}>
+            <Route path="/instructor-dashboard" element={<InstructorDashboard />} />
+          </Route>
+          
+          {/* 404 Route */}
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

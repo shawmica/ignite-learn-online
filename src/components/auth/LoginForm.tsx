@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
@@ -9,6 +9,7 @@ import { useToast } from '@/hooks/use-toast';
 
 const LoginForm = () => {
   const { toast } = useToast();
+  const navigate = useNavigate();
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
   const [isLoading, setIsLoading] = React.useState(false);
@@ -17,15 +18,41 @@ const LoginForm = () => {
     e.preventDefault();
     setIsLoading(true);
     
-    // Simulate login process
-    setTimeout(() => {
+    // In a real application, this would send data to the backend API
+    // POST /api/auth/login/
+    try {
+      // Simulating API call
+      setTimeout(() => {
+        // For demo purposes, determine role based on email
+        // In a real app, role would come from the backend
+        const role = email.includes('instructor') ? 'instructor' : 'student';
+        
+        // Store JWT token in localStorage (in a real app, this would come from the backend)
+        localStorage.setItem('token', 'sample-jwt-token');
+        localStorage.setItem('user', JSON.stringify({
+          email: email,
+          role: role,
+          firstName: 'Demo',
+          lastName: 'User'
+        }));
+        
+        toast({
+          title: "Login Successful",
+          description: "Welcome back to Ignite Learn!",
+        });
+        setIsLoading(false);
+        
+        // Redirect based on role
+        navigate(role === 'instructor' ? '/instructor-dashboard' : '/dashboard');
+      }, 1500);
+    } catch (error) {
       toast({
-        title: "Login Successful",
-        description: "Welcome back to Ignite Learn!",
+        title: "Login failed",
+        description: "Invalid email or password. Please try again.",
+        variant: "destructive",
       });
       setIsLoading(false);
-      // Redirect would happen here in a real app
-    }, 1500);
+    }
   };
 
   return (

@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
@@ -10,6 +10,7 @@ import { useToast } from '@/hooks/use-toast';
 
 const SignupForm = () => {
   const { toast } = useToast();
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -43,15 +44,37 @@ const SignupForm = () => {
     
     setIsLoading(true);
     
-    // Simulate registration process
-    setTimeout(() => {
+    // In a real application, this would send data to the backend API
+    // POST /api/auth/register/
+    try {
+      // Simulating API call
+      setTimeout(() => {
+        // Store JWT token in localStorage (in a real app, this would come from the backend)
+        localStorage.setItem('token', 'sample-jwt-token');
+        localStorage.setItem('user', JSON.stringify({
+          firstName: formData.firstName,
+          lastName: formData.lastName,
+          email: formData.email,
+          role: formData.role
+        }));
+        
+        toast({
+          title: "Account created successfully",
+          description: "Welcome to Ignite Learn!",
+        });
+        setIsLoading(false);
+        
+        // Redirect to dashboard based on role
+        navigate(formData.role === 'instructor' ? '/instructor-dashboard' : '/dashboard');
+      }, 1500);
+    } catch (error) {
       toast({
-        title: "Account created successfully",
-        description: "Welcome to Ignite Learn!",
+        title: "Registration failed",
+        description: "There was an error creating your account. Please try again.",
+        variant: "destructive",
       });
       setIsLoading(false);
-      // Redirect would happen here in a real app
-    }, 1500);
+    }
   };
 
   return (

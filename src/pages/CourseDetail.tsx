@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import Navbar from '@/components/layout/Navbar';
@@ -9,6 +8,21 @@ import { Progress } from '@/components/ui/progress';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Clock, Book, FileText, Check } from 'lucide-react';
 import { toast } from 'sonner';
+
+// Define the correct types for Lesson and Module
+interface Lesson {
+  id: string;
+  title: string;
+  duration: string;
+  type: "video" | "document";
+  isCompleted: boolean;
+}
+
+interface Module {
+  id: string;
+  title: string;
+  lessons: Lesson[];
+}
 
 // Sample course data
 const courseData = {
@@ -34,28 +48,28 @@ const courseData = {
           id: 'l1',
           title: 'Introduction to HTML',
           duration: '10 min',
-          type: 'video',
+          type: "video" as const,
           isCompleted: true,
         },
         {
           id: 'l2',
           title: 'Basic HTML Tags',
           duration: '15 min',
-          type: 'video',
+          type: "video" as const,
           isCompleted: true,
         },
         {
           id: 'l3',
           title: 'HTML Document Structure',
           duration: '12 min',
-          type: 'video',
+          type: "video" as const,
           isCompleted: true,
         },
         {
           id: 'l4',
           title: 'HTML Exercise',
           duration: 'Exercise',
-          type: 'document',
+          type: "document" as const,
           isCompleted: true,
         },
       ],
@@ -68,35 +82,35 @@ const courseData = {
           id: 'l5',
           title: 'Introduction to CSS',
           duration: '14 min',
-          type: 'video',
+          type: "video" as const,
           isCompleted: true,
         },
         {
           id: 'l6',
           title: 'Selectors and Properties',
           duration: '18 min',
-          type: 'video',
+          type: "video" as const,
           isCompleted: true,
         },
         {
           id: 'l7',
           title: 'Box Model',
           duration: '16 min',
-          type: 'video',
+          type: "video" as const,
           isCompleted: true,
         },
         {
           id: 'l8',
           title: 'CSS Exercise',
           duration: 'Exercise',
-          type: 'document',
+          type: "document" as const,
           isCompleted: false,
         },
         {
           id: 'l9',
           title: 'CSS Quiz',
           duration: '10 questions',
-          type: 'document',
+          type: "document" as const,
           isCompleted: false,
         },
       ],
@@ -109,40 +123,40 @@ const courseData = {
           id: 'l10',
           title: 'Introduction to JavaScript',
           duration: '15 min',
-          type: 'video',
+          type: "video" as const,
           isCompleted: false,
         },
         {
           id: 'l11',
           title: 'Variables and Data Types',
           duration: '20 min',
-          type: 'video',
+          type: "video" as const,
           isCompleted: false,
         },
         {
           id: 'l12',
           title: 'Functions and Control Flow',
           duration: '25 min',
-          type: 'video',
+          type: "video" as const,
           isCompleted: false,
         },
         {
           id: 'l13',
           title: 'DOM Manipulation',
           duration: '22 min',
-          type: 'video',
+          type: "video" as const,
           isCompleted: false,
         },
         {
           id: 'l14',
           title: 'JavaScript Exercise',
           duration: 'Exercise',
-          type: 'document',
+          type: "document" as const,
           isCompleted: false,
         },
       ],
     },
-  ],
+  ] as Module[],
 };
 
 // Mock video content
